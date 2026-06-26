@@ -1,6 +1,7 @@
 package com.example.meeting.model;
 
+// Statut possible d'une réservation
 public enum ReservationStatus {
-    CONFIRMED,
-    CANCELLED
+    CONFIRMED,  // réservation active
+    CANCELLED   // réservation annulée
 }

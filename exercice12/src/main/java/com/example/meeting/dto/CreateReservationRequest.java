@@ -5,12 +5,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
+// Données envoyées pour créer une réservation
 public class CreateReservationRequest {
 
     @NotNull
     private Long roomId;
 
-    @NotBlank
+    @NotBlank  // le nom de la personne est obligatoire
     private String bookedBy;
 
     @NotNull

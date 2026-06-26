@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+// Stockage des salles en mémoire (pas de base de données)
 @Repository
 public class InMemoryRoomRepository implements RoomRepository {
 
@@ -18,6 +19,7 @@ public class InMemoryRoomRepository implements RoomRepository {
 
     @Override
     public Room save(Room room) {
+        // génère un id automatiquement si la salle est nouvelle
         if (room.getId() == null) {
             room.setId(idGenerator.getAndIncrement());
         }
@@ -35,6 +37,7 @@ public class InMemoryRoomRepository implements RoomRepository {
         return new ArrayList<>(storage.values());
     }
 
+    // utilisé par les tests pour réinitialiser les données
     @Override
     public void clear() {
         storage.clear();

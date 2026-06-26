@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// Controller REST pour gérer les salles de réunion
 @RestController
 @RequestMapping("/api/rooms")
 public class RoomController {
@@ -24,12 +25,14 @@ public class RoomController {
         this.roomService = roomService;
     }
 
+    // POST /api/rooms : créer une salle
     @PostMapping
     public ResponseEntity<RoomResponse> createRoom(@Valid @RequestBody CreateRoomRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(RoomResponse.from(roomService.createRoom(request)));
     }
 
+    // GET /api/rooms : lister toutes les salles
     @GetMapping
     public ResponseEntity<List<RoomResponse>> getAllRooms() {
         List<RoomResponse> rooms = roomService.getAllRooms().stream()

@@ -1,5 +1,6 @@
 package com.example.meeting.model;
 
+// Représente une salle de réunion
 public class Room {
 
     private Long id;

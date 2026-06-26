@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// Service qui gère la création et la liste des salles
 @Service
 public class DefaultRoomService implements RoomService {
 
@@ -18,6 +19,7 @@ public class DefaultRoomService implements RoomService {
 
     @Override
     public Room createRoom(CreateRoomRequest request) {
+        // on crée une nouvelle salle à partir de la requête
         Room room = new Room();
         room.setName(request.getName());
         room.setCapacity(request.getCapacity());

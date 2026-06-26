@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+// Service qui contient la logique métier des réservations
 @Service
 public class DefaultReservationService implements ReservationService {
 
@@ -28,13 +29,16 @@ public class DefaultReservationService implements ReservationService {
 
     @Override
     public Reservation createReservation(CreateReservationRequest request) {
+        // on vérifie que la salle existe
         roomRepository.findById(request.getRoomId())
                 .orElseThrow(() -> new RoomNotFoundException(request.getRoomId()));
 
+        // la fin doit être après le début
         if (!request.getEndTime().isAfter(request.getStartTime())) {
             throw new InvalidTimeSlotException();
         }
 
+        // on vérifie qu'il n'y a pas de chevauchement avec une autre réservation
         boolean hasConflict = reservationRepository.findConfirmedByRoomId(request.getRoomId()).stream()
                 .anyMatch(existing -> overlaps(request.getStartTime(), request.getEndTime(), existing));
 
@@ -42,6 +46,7 @@ public class DefaultReservationService implements ReservationService {
             throw new ReservationConflictException();
         }
 
+        // création de la réservation avec le statut CONFIRMED
         Reservation reservation = new Reservation();
         reservation.setRoomId(request.getRoomId());
         reservation.setBookedBy(request.getBookedBy());
@@ -61,6 +66,7 @@ public class DefaultReservationService implements ReservationService {
     public Reservation cancelReservation(Long id) {
         Reservation reservation = getReservation(id);
 
+        // on ne peut pas annuler deux fois la même réservation
         if (reservation.getStatus() == ReservationStatus.CANCELLED) {
             throw new ReservationAlreadyCancelledException();
         }

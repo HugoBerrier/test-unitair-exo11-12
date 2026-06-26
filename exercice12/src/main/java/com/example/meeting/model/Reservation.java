@@ -2,6 +2,7 @@ package com.example.meeting.model;
 
 import java.time.LocalDateTime;
 
+// Représente une réservation de salle
 public class Reservation {
 
     private Long id;

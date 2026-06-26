@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+// Stockage des réservations en mémoire (pas de base de données)
 @Repository
 public class InMemoryReservationRepository implements ReservationRepository {
 
@@ -32,12 +33,14 @@ public class InMemoryReservationRepository implements ReservationRepository {
 
     @Override
     public List<Reservation> findConfirmedByRoomId(Long roomId) {
+        // on ne garde que les réservations confirmées pour vérifier les conflits
         return storage.values().stream()
                 .filter(r -> roomId.equals(r.getRoomId()))
                 .filter(r -> r.getStatus() == ReservationStatus.CONFIRMED)
                 .toList();
     }
 
+    // utilisé par les tests pour réinitialiser les données
     @Override
     public void clear() {
         storage.clear();
