@@ -37,4 +37,10 @@ public class InMemoryReservationRepository implements ReservationRepository {
                 .filter(r -> r.getStatus() == ReservationStatus.CONFIRMED)
                 .toList();
     }
+
+    @Override
+    public void clear() {
+        storage.clear();
+        idGenerator.set(1);
+    }
 }

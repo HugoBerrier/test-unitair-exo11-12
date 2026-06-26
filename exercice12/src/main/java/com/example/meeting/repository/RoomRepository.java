@@ -12,4 +12,6 @@ public interface RoomRepository {
     Optional<Room> findById(Long id);
 
     List<Room> findAll();
+
+    void clear();
 }

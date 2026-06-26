@@ -34,4 +34,10 @@ public class InMemoryRoomRepository implements RoomRepository {
     public List<Room> findAll() {
         return new ArrayList<>(storage.values());
     }
+
+    @Override
+    public void clear() {
+        storage.clear();
+        idGenerator.set(1);
+    }
 }

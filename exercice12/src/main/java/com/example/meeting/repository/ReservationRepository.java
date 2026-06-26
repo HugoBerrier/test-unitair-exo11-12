@@ -12,4 +12,6 @@ public interface ReservationRepository {
     Optional<Reservation> findById(Long id);
 
     List<Reservation> findConfirmedByRoomId(Long roomId);
+
+    void clear();
 }
